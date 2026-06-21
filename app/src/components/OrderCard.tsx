@@ -4,6 +4,7 @@ type ReportCardProps = Readonly<{
   client: string;
   status: ReportStatusType;
   date: Date;
+  onAction: (action: string, reportId: number) => void;
 }>;
 
 const statusConfig = {
@@ -12,10 +13,12 @@ const statusConfig = {
     badge: "text-bg-warning",
     actions: [
       {
+        type: "capture",
         text: "Continuar Captura",
         className: "btn btn-warning text-white",
       },
       {
+        type: "delete",
         text: "Eliminar Reporte",
         className: "btn btn-outline-danger",
       },
@@ -26,6 +29,7 @@ const statusConfig = {
     badge: "text-bg-primary",
     actions: [
       {
+        type: "review",
         text: "En Revisión",
         className: "btn btn-outline-primary",
       },
@@ -36,6 +40,7 @@ const statusConfig = {
     badge: "text-bg-success",
     actions: [
       {
+        type: "download",
         text: "Descargar PDF",
         className: "btn btn-success",
       },
@@ -43,7 +48,13 @@ const statusConfig = {
   },
 };
 
-function OrderCard({ folio_pisa, client, status, date }: ReportCardProps) {
+function OrderCard({
+  folio_pisa,
+  client,
+  status,
+  date,
+  onAction,
+}: ReportCardProps) {
   const config = statusConfig[status];
   return (
     <div className={`card rounded-4 p-3 border-2 ${config.border}`}>
@@ -81,6 +92,7 @@ function OrderCard({ folio_pisa, client, status, date }: ReportCardProps) {
             >
               <button
                 className={`${action.className} w-100 py-3 rounded-5 fw-semibold fs-4`}
+                onClick={() => onAction(action.type)}
               >
                 {action.text}
               </button>

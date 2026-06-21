@@ -34,6 +34,23 @@ const reports = [
 ];
 
 function ReportList() {
+  const handleAction = (type: string, reportId: number) => {
+    switch (type) {
+      case "capture":
+        //Logica para ir al formulario
+        break;
+      case "delete":
+        //logica para borrar la orden en la base de datos y en la UI
+        break;
+      case "review":
+        //no hay logica, el button siempre estara desactivado
+        break;
+      case "download":
+        //logica para descargar el pdf
+        break;
+    }
+  };
+
   return (
     <div className="container gy-3">
       <div className="row gy-4">
@@ -44,6 +61,7 @@ function ReportList() {
               client={report.client}
               date={report.date}
               status={report.status}
+              onAction={handleAction}
             ></OrderCard>
           </div>
         ))}
