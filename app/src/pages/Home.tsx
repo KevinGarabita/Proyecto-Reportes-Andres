@@ -1,7 +1,7 @@
-import OrderCard from "../components/orderCard";
+import ReportList from "../components/reportList";
 
 function Home() {
-  return <OrderCard></OrderCard>;
+  return <ReportList></ReportList>;
 }
 
 export default Home;
