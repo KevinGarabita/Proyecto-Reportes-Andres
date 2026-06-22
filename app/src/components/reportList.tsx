@@ -1,41 +1,41 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ReportStatus } from "../types/reportStatus";
 import OrderCard from "./orderCard";
+import { supabase } from "../../lib/supabase";
 import type { Report } from "../types/report";
 import type { ReportActionType } from "../types/reportAction";
 
-const reports: Report[] = [
-  {
-    id: 1,
-    folio_pisa: "PSA-2024-001",
-    client: "Telmex",
-    date: new Date(),
-    status: ReportStatus.Approved,
-  },
-  {
-    id: 2,
-    folio_pisa: "PSA-2024-001",
-    client: "Telmex",
-    date: new Date(),
-    status: ReportStatus.Pending,
-  },
-  {
-    id: 3,
-    folio_pisa: "PSA-2024-001",
-    client: "Telmex",
-    date: new Date(),
-    status: ReportStatus.Review,
-  },
-  {
-    id: 4,
-    folio_pisa: "PSA-2024-001",
-    client: "Telmex",
-    date: new Date(),
-    status: ReportStatus.Approved,
-  },
-];
-
 function ReportList() {
+  const [reports, setReports] = useState<Report[]>([]);
+
+  useEffect(() => {
+    const fetchReports = async () => {
+      const { data, error } = await supabase.from("reports").select("*");
+
+      if (error) {
+        console.error(error);
+        return;
+      }
+
+      setReports(
+        data.map((row) => ({
+          id: row.id,
+          folio_pisa: row.folio_pisa,
+          client: row.nombre_cliente,
+          date: new Date(row.fecha_liquidacion),
+          status:
+            row.estado == "DRAFT"
+              ? ReportStatus.DRAFT
+              : row.estado == "APPROVED"
+                ? ReportStatus.APPROVED
+                : ReportStatus.REVIEW,
+        })),
+      );
+    };
+
+    fetchReports();
+  }, []);
+
   const handleAction = (type: ReportActionType, reportId: number) => {
     switch (type) {
       case "capture":

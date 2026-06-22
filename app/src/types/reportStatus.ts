@@ -1,7 +1,7 @@
 export const ReportStatus = {
-  Pending: "• Pendiente",
-  Review: "• En revisión",
-  Approved: "• Aprobado",
+  DRAFT: "• Pendiente",
+  REVIEW: "• En revisión",
+  APPROVED: "• Aprobado",
 } as const;
 
 export type ReportStatusType = (typeof ReportStatus)[keyof typeof ReportStatus];

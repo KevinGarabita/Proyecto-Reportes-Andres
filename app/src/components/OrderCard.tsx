@@ -7,7 +7,7 @@ type ReportCardProps = Readonly<{
 }>;
 
 const statusConfig = {
-  [ReportStatus.Pending]: {
+  [ReportStatus.DRAFT]: {
     border: "border-warning",
     badge: "text-bg-warning",
     actions: [
@@ -23,7 +23,7 @@ const statusConfig = {
       },
     ],
   },
-  [ReportStatus.Review]: {
+  [ReportStatus.REVIEW]: {
     border: "border-primary",
     badge: "text-bg-primary",
     actions: [
@@ -34,7 +34,7 @@ const statusConfig = {
       },
     ],
   },
-  [ReportStatus.Approved]: {
+  [ReportStatus.APPROVED]: {
     border: "border-success",
     badge: "text-bg-success",
     actions: [
