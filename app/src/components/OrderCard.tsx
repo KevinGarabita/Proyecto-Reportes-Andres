@@ -1,6 +1,7 @@
 import type { Report } from "../types/report";
 import { ReportAction, type ReportActionType } from "../types/reportAction";
 import { ReportStatus } from "../types/reportStatus";
+import { ReportStatusLabel } from "../types/reportStatus";
 type ReportCardProps = Readonly<{
   report: Report;
   onAction: (action: ReportActionType, reportId: number) => void;
@@ -65,7 +66,7 @@ function OrderCard({ report, onAction }: ReportCardProps) {
         </div>
         <span className={`badge rounded-pill ${config.badge}`}>
           {" "}
-          {report.status}
+          {ReportStatusLabel[report.status]}
         </span>
       </div>
 
@@ -75,7 +76,7 @@ function OrderCard({ report, onAction }: ReportCardProps) {
         <div>
           <h3 className="card-title mb-3">{report.client}</h3>
           <h5 className="card-subtitle text-body-secondary mb-0">
-            {report.date.toLocaleDateString("es-MX")}
+            {new Date(report.date).toLocaleDateString("es-MX")}
           </h5>
         </div>
       </div>

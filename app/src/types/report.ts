@@ -1,9 +1,9 @@
 import type { ReportStatusType } from "./reportStatus";
 
 export type Report = {
-  id: number;
+  id: string;
   folio_pisa: string;
   client: string;
-  date: Date;
   status: ReportStatusType;
+  date: Date;
 };

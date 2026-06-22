@@ -1,36 +1,22 @@
 import { useEffect, useState } from "react";
 import { ReportStatus } from "../types/reportStatus";
 import OrderCard from "./orderCard";
-import { supabase } from "../../lib/supabase";
 import type { Report } from "../types/report";
 import type { ReportActionType } from "../types/reportAction";
+import { getReports } from "../services/reportService";
 
 function ReportList() {
   const [reports, setReports] = useState<Report[]>([]);
 
   useEffect(() => {
     const fetchReports = async () => {
-      const { data, error } = await supabase.from("reports").select("*");
-
-      if (error) {
+      try {
+        const data = await getReports();
+        console.log(data);
+        setReports(data);
+      } catch (error) {
         console.error(error);
-        return;
       }
-
-      setReports(
-        data.map((row) => ({
-          id: row.id,
-          folio_pisa: row.folio_pisa,
-          client: row.nombre_cliente,
-          date: new Date(row.fecha_liquidacion),
-          status:
-            row.estado == "DRAFT"
-              ? ReportStatus.DRAFT
-              : row.estado == "APPROVED"
-                ? ReportStatus.APPROVED
-                : ReportStatus.REVIEW,
-        })),
-      );
     };
 
     fetchReports();
