@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { ReportStatus } from "../types/reportStatus";
 import OrderCard from "./orderCard";
+import type { Report } from "../types/report";
+import type { ReportActionType } from "../types/reportAction";
 
-const reports = [
+const reports: Report[] = [
   {
     id: 1,
     folio_pisa: "PSA-2024-001",
@@ -34,7 +36,7 @@ const reports = [
 ];
 
 function ReportList() {
-  const handleAction = (type: string, reportId: number) => {
+  const handleAction = (type: ReportActionType, reportId: number) => {
     switch (type) {
       case "capture":
         //Logica para ir al formulario
@@ -56,13 +58,7 @@ function ReportList() {
       <div className="row gy-4">
         {reports.map((report) => (
           <div key={report.id} className="col-12">
-            <OrderCard
-              folio_pisa={report.folio_pisa}
-              client={report.client}
-              date={report.date}
-              status={report.status}
-              onAction={handleAction}
-            ></OrderCard>
+            <OrderCard report={report} onAction={handleAction}></OrderCard>
           </div>
         ))}
       </div>

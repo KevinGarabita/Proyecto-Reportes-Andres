@@ -1,10 +1,9 @@
-import { ReportStatus, type ReportStatusType } from "../types/reportStatus";
+import type { Report } from "../types/report";
+import { ReportAction, type ReportActionType } from "../types/reportAction";
+import { ReportStatus } from "../types/reportStatus";
 type ReportCardProps = Readonly<{
-  folio_pisa: string;
-  client: string;
-  status: ReportStatusType;
-  date: Date;
-  onAction: (action: string, reportId: number) => void;
+  report: Report;
+  onAction: (action: ReportActionType, reportId: number) => void;
 }>;
 
 const statusConfig = {
@@ -13,12 +12,12 @@ const statusConfig = {
     badge: "text-bg-warning",
     actions: [
       {
-        type: "capture",
+        type: ReportAction.Capture,
         text: "Continuar Captura",
         className: "btn btn-warning text-white",
       },
       {
-        type: "delete",
+        type: ReportAction.Delete,
         text: "Eliminar Reporte",
         className: "btn btn-outline-danger",
       },
@@ -29,7 +28,7 @@ const statusConfig = {
     badge: "text-bg-primary",
     actions: [
       {
-        type: "review",
+        type: ReportAction.Review,
         text: "En Revisión",
         className: "btn btn-outline-primary",
       },
@@ -40,7 +39,7 @@ const statusConfig = {
     badge: "text-bg-success",
     actions: [
       {
-        type: "download",
+        type: ReportAction.Download,
         text: "Descargar PDF",
         className: "btn btn-success",
       },
@@ -48,14 +47,8 @@ const statusConfig = {
   },
 };
 
-function OrderCard({
-  folio_pisa,
-  client,
-  status,
-  date,
-  onAction,
-}: ReportCardProps) {
-  const config = statusConfig[status];
+function OrderCard({ report, onAction }: ReportCardProps) {
+  const config = statusConfig[report.status];
   return (
     <div className={`card rounded-4 p-3 border-2 ${config.border}`}>
       {/*HEADER*/}
@@ -65,18 +58,24 @@ function OrderCard({
             Folio pisa
           </h6>
 
-          <h3 className="card-title mb-0 text-uppercase"> {folio_pisa}</h3>
+          <h3 className="card-title mb-0 text-uppercase">
+            {" "}
+            {report.folio_pisa}
+          </h3>
         </div>
-        <span className={`badge rounded-pill ${config.badge}`}> {status}</span>
+        <span className={`badge rounded-pill ${config.badge}`}>
+          {" "}
+          {report.status}
+        </span>
       </div>
 
       {/*INFO*/}
 
       <div className="d-flex justify-content-between align-items-start rounded-5 bg-light p-4 mt-3">
         <div>
-          <h3 className="card-title mb-3">{client}</h3>
+          <h3 className="card-title mb-3">{report.client}</h3>
           <h5 className="card-subtitle text-body-secondary mb-0">
-            {date.toLocaleDateString("es-MX")}
+            {report.date.toLocaleDateString("es-MX")}
           </h5>
         </div>
       </div>
@@ -87,12 +86,12 @@ function OrderCard({
         <div className="row ">
           {config.actions.map((action) => (
             <div
-              key={action.text}
+              key={action.type}
               className={`col-${config.actions.length === 1 ? 12 : 6}`}
             >
               <button
                 className={`${action.className} w-100 py-3 rounded-5 fw-semibold fs-4`}
-                onClick={() => onAction(action.type)}
+                onClick={() => onAction(action.type, report.id)}
               >
                 {action.text}
               </button>
