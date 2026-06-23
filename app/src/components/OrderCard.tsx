@@ -1,9 +1,9 @@
-import type { Report } from "../types/report";
+import type { ReportSummary } from "../types/report";
 import { ReportAction, type ReportActionType } from "../types/reportAction";
-import { ReportStatus } from "../types/reportStatus";
-import { ReportStatusLabel } from "../types/reportStatus";
+import { ReportStatus, ReportStatusLabel } from "../types/reportStatus";
+
 type ReportCardProps = Readonly<{
-  report: Report;
+  report: ReportSummary;
   onAction: (action: ReportActionType, reportId: number) => void;
 }>;
 
@@ -49,7 +49,7 @@ const statusConfig = {
 };
 
 function OrderCard({ report, onAction }: ReportCardProps) {
-  const config = statusConfig[report.status];
+  const config = statusConfig[report.estado];
   return (
     <div className={`card rounded-4 p-3 border-2 ${config.border}`}>
       {/*HEADER*/}
@@ -66,7 +66,7 @@ function OrderCard({ report, onAction }: ReportCardProps) {
         </div>
         <span className={`badge rounded-pill ${config.badge}`}>
           {" "}
-          {ReportStatusLabel[report.status]}
+          {ReportStatusLabel[report.estado]}
         </span>
       </div>
 
@@ -74,9 +74,9 @@ function OrderCard({ report, onAction }: ReportCardProps) {
 
       <div className="d-flex justify-content-between align-items-start rounded-5 bg-light p-4 mt-3">
         <div>
-          <h3 className="card-title mb-3">{report.client}</h3>
+          <h3 className="card-title mb-3">{report.nombre_cliente}</h3>
           <h5 className="card-subtitle text-body-secondary mb-0">
-            {new Date(report.date).toLocaleDateString("es-MX")}
+            {new Date(report.fecha_liquidacion).toLocaleDateString("es-MX")}
           </h5>
         </div>
       </div>
@@ -93,6 +93,7 @@ function OrderCard({ report, onAction }: ReportCardProps) {
               <button
                 className={`${action.className} w-100 py-3 rounded-5 fw-semibold fs-4`}
                 onClick={() => onAction(action.type, report.id)}
+                disabled={action.type === ReportAction.Review}
               >
                 {action.text}
               </button>

@@ -1,8 +1,8 @@
-import type { Report } from "../types/report";
+import type { ReportSummary } from "../types/report";
 
 const API_URL = "http://localhost:8000";
 
-export async function getReports(): Promise<Report[]> {
+export async function getReports(): Promise<ReportSummary[]> {
   const response = await fetch(`${API_URL}/reports/`);
 
   if (!response.ok) {

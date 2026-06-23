@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { ReportStatus } from "../types/reportStatus";
-import OrderCard from "./orderCard";
-import type { Report } from "../types/report";
+import OrderCard from "./OrderCard";
+import type { ReportSummary } from "../types/report";
 import type { ReportActionType } from "../types/reportAction";
 import { getReports } from "../services/reportService";
 
 function ReportList() {
-  const [reports, setReports] = useState<Report[]>([]);
+  const [reports, setReports] = useState<ReportSummary[]>([]);
 
   useEffect(() => {
     const fetchReports = async () => {
