@@ -1,14 +1,106 @@
-import { useState } from "react";
+import type { Report } from "../types/report";
+import { ReportAction, type ReportActionType } from "../types/reportAction";
+import { ReportStatus } from "../types/reportStatus";
+import { ReportStatusLabel } from "../types/reportStatus";
+type ReportCardProps = Readonly<{
+  report: Report;
+  onAction: (action: ReportActionType, reportId: number) => void;
+}>;
 
-function OrderCard() {
-  const [folio, setFolio] = useState(0);
+const statusConfig = {
+  [ReportStatus.DRAFT]: {
+    border: "border-warning",
+    badge: "text-bg-warning",
+    actions: [
+      {
+        type: ReportAction.Capture,
+        text: "Continuar Captura",
+        className: "btn btn-warning text-white",
+      },
+      {
+        type: ReportAction.Delete,
+        text: "Eliminar Reporte",
+        className: "btn btn-outline-danger",
+      },
+    ],
+  },
+  [ReportStatus.REVIEW]: {
+    border: "border-primary",
+    badge: "text-bg-primary",
+    actions: [
+      {
+        type: ReportAction.Review,
+        text: "En Revisión",
+        className: "btn btn-outline-primary",
+      },
+    ],
+  },
+  [ReportStatus.APPROVED]: {
+    border: "border-success",
+    badge: "text-bg-success",
+    actions: [
+      {
+        type: ReportAction.Download,
+        text: "Descargar PDF",
+        className: "btn btn-success",
+      },
+    ],
+  },
+};
 
+function OrderCard({ report, onAction }: ReportCardProps) {
+  const config = statusConfig[report.status];
   return (
-    <>
-      <div>
-        <h1>el folio es {folio}</h1>
+    <div className={`card rounded-4 p-3 border-2 ${config.border}`}>
+      {/*HEADER*/}
+      <div className="d-flex justify-content-between align-items-start">
+        <div>
+          <h6 className="card-subtitle mb-2 text-body-secondary text-uppercase">
+            Folio pisa
+          </h6>
+
+          <h3 className="card-title mb-0 text-uppercase">
+            {" "}
+            {report.folio_pisa}
+          </h3>
+        </div>
+        <span className={`badge rounded-pill ${config.badge}`}>
+          {" "}
+          {ReportStatusLabel[report.status]}
+        </span>
       </div>
-    </>
+
+      {/*INFO*/}
+
+      <div className="d-flex justify-content-between align-items-start rounded-5 bg-light p-4 mt-3">
+        <div>
+          <h3 className="card-title mb-3">{report.client}</h3>
+          <h5 className="card-subtitle text-body-secondary mb-0">
+            {new Date(report.date).toLocaleDateString("es-MX")}
+          </h5>
+        </div>
+      </div>
+
+      {/*BUTTONS*/}
+
+      <div className="container mt-3">
+        <div className="row ">
+          {config.actions.map((action) => (
+            <div
+              key={action.type}
+              className={`col-${config.actions.length === 1 ? 12 : 6}`}
+            >
+              <button
+                className={`${action.className} w-100 py-3 rounded-5 fw-semibold fs-4`}
+                onClick={() => onAction(action.type, report.id)}
+              >
+                {action.text}
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }
 
