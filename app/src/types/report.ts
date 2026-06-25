@@ -8,15 +8,17 @@ export type ReportSummary = {
   fecha_liquidacion: Date;
 };
 
-export type ReportDetails = ReportSummary & {
+export type CreateReportRequest = {
   cope: string;
   expediente_pic: string;
 
+  folio_pisa: string;
   folio_plex: string;
 
   tipo_tarea: string;
 
   telefono_cliente: string;
+  nombre_cliente: string;
 
   tecnologia: string;
 
@@ -35,4 +37,12 @@ export type ReportDetails = ReportSummary & {
 
   supervisor_id: string;
   tecnico_id: string;
+
+  fecha_liquidacion: string;
+
+  estado: ReportStatusType;
+};
+
+export type ReportDetails = CreateReportRequest & {
+  id: string;
 };

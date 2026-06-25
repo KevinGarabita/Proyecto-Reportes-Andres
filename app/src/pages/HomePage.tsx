@@ -1,8 +1,8 @@
 import ReportList from "../components/reportList";
 import HomeHeader from "../components/homeHeader";
-import FloatingButton from "../components/FloatingButton";
 import { useNavigate } from "react-router-dom";
 import PageHeader from "../components/pageHeader";
+import FloatingButton from "../components/floatingButton";
 function HomePage() {
   const navigate = useNavigate();
   return (

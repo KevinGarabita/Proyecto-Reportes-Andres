@@ -1,6 +1,6 @@
 import type { ReportDetails, ReportSummary } from "../types/report";
 
-const API_URL = "http://localhost:8000";
+const API_URL = "http://192.168.1.64:8000";
 
 export async function getReports(): Promise<ReportSummary[]> {
   const response = await fetch(`${API_URL}/reports/`);
