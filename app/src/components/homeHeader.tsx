@@ -7,7 +7,7 @@ type HomeHeaderProps = {
 
 function HomeHeader({ technicianName }: HomeHeaderProps) {
   return (
-    <div className="container-fluid bg-telefield mb-3 p-4 text-center">
+    <div>
       <Header></Header>
       <div className="mt-5">
         <h1 className="fw-bold text-white">Hola, {technicianName}</h1>

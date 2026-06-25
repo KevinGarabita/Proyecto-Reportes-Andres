@@ -1,4 +1,4 @@
-import type { ReportSummary } from "../types/report";
+import type { ReportDetails, ReportSummary } from "../types/report";
 
 const API_URL = "http://localhost:8000";
 
@@ -10,4 +10,23 @@ export async function getReports(): Promise<ReportSummary[]> {
   }
 
   return response.json();
+}
+
+export async function getReport(id: string): Promise<ReportDetails> {
+  const response = await fetch(`${API_URL}/reports/${id}`);
+  if (!response.ok) {
+    throw new Error("Error al obtener reporte");
+  }
+
+  return response.json();
+}
+
+export async function deleteReport(reportId: string) {
+  const response = await fetch(`${API_URL}/reports/${reportId}`, {
+    method: "DELETE",
+  });
+
+  if (!response.ok) {
+    throw new Error("Error al eliminar reporte");
+  }
 }

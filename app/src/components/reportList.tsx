@@ -1,18 +1,33 @@
 import { useEffect, useState } from "react";
-import { ReportStatus } from "../types/reportStatus";
-import OrderCard from "./OrderCard";
+import OrderCard from "./orderCard";
 import type { ReportSummary } from "../types/report";
-import type { ReportActionType } from "../types/reportAction";
-import { getReports } from "../services/reportService";
+import { ReportAction, type ReportActionType } from "../types/reportAction";
+import { deleteReport, getReports } from "../services/reportService";
+import { useNavigate } from "react-router-dom";
 
 function ReportList() {
+  const navigate = useNavigate();
   const [reports, setReports] = useState<ReportSummary[]>([]);
 
+  const handleDelete = async (reportId: string) => {
+    try {
+      await deleteReport(reportId);
+
+      setReports((current) =>
+        current.filter((report) => report.id != reportId),
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleCapture = (reportId: string) => navigate(`/reports/${reportId}`);
+
   useEffect(() => {
+    console.log("report list");
     const fetchReports = async () => {
       try {
         const data = await getReports();
-        console.log(data);
         setReports(data);
       } catch (error) {
         console.error(error);
@@ -22,26 +37,26 @@ function ReportList() {
     fetchReports();
   }, []);
 
-  const handleAction = (type: ReportActionType, reportId: number) => {
+  const handleAction = (type: ReportActionType, reportId: string) => {
     switch (type) {
-      case "capture":
-        //Logica para ir al formulario
+      case ReportAction.Capture:
+        handleCapture(reportId);
         break;
-      case "delete":
-        //logica para borrar la orden en la base de datos y en la UI
+      case ReportAction.Delete:
+        handleDelete(reportId);
         break;
-      case "review":
-        //no hay logica, el button siempre estara desactivado
+      case ReportAction.Review:
+        //aqui no hace nada
         break;
-      case "download":
+      case ReportAction.Download:
         //logica para descargar el pdf
         break;
     }
   };
 
   return (
-    <div className="container gy-3">
-      <div className="row gy-4">
+    <div className="container" style={{ paddingBottom: "120px" }}>
+      <div className="row gy-5 py-1">
         {reports.map((report) => (
           <div key={report.id} className="col-12">
             <OrderCard report={report} onAction={handleAction}></OrderCard>

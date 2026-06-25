@@ -4,7 +4,7 @@ import { ReportStatus, ReportStatusLabel } from "../types/reportStatus";
 
 type ReportCardProps = Readonly<{
   report: ReportSummary;
-  onAction: (action: ReportActionType, reportId: number) => void;
+  onAction: (action: ReportActionType, reportId: string) => void;
 }>;
 
 const statusConfig = {
