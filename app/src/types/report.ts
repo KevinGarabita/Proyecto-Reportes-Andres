@@ -1,9 +1,38 @@
 import type { ReportStatusType } from "./reportStatus";
 
-export type Report = {
+export type ReportSummary = {
   id: string;
   folio_pisa: string;
-  client: string;
-  status: ReportStatusType;
-  date: Date;
+  nombre_cliente: string;
+  estado: ReportStatusType;
+  fecha_liquidacion: Date;
+};
+
+export type ReportDetails = ReportSummary & {
+  cope: string;
+  expediente_pic: string;
+
+  folio_plex: string;
+
+  tipo_tarea: string;
+
+  telefono_cliente: string;
+
+  tecnologia: string;
+
+  distrito: string;
+  terminal: string;
+
+  par: string;
+  metraje: number;
+
+  tipo_os: string;
+
+  georeferencia_casa: string;
+  georeferencia_terminal: string;
+
+  alfanumerico: string;
+
+  supervisor_id: string;
+  tecnico_id: string;
 };

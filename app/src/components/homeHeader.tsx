@@ -1,12 +1,13 @@
 import Header from "./header";
 import SearchBar from "./searchBar";
+import StatusTabs from "./statusTabs";
 type HomeHeaderProps = {
   technicianName: string;
 };
 
 function HomeHeader({ technicianName }: HomeHeaderProps) {
   return (
-    <div className="container-fluid bg-telefield mb-3 p-4">
+    <div>
       <Header></Header>
       <div className="mt-5">
         <h1 className="fw-bold text-white">Hola, {technicianName}</h1>
@@ -16,6 +17,7 @@ function HomeHeader({ technicianName }: HomeHeaderProps) {
       </div>
 
       <SearchBar></SearchBar>
+      <StatusTabs></StatusTabs>
     </div>
   );
 }
