@@ -35,5 +35,11 @@
     "typescript-eslint": "^8.59.2",
     "vite": "^8.0.12",
     "vite-bundle-visualizer": "^1.2.1"
-  }
+  },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
 }
