@@ -76,7 +76,9 @@ function OrderCard({ report, onAction }: ReportCardProps) {
         <div>
           <h3 className="card-title mb-3">{report.nombre_cliente}</h3>
           <h5 className="card-subtitle text-body-secondary mb-0">
-            {new Date(report.fecha_liquidacion).toLocaleDateString("es-MX")}
+            {report.fecha_liquidacion
+              ? new Date(report.fecha_liquidacion).toLocaleDateString("es-MX")
+              : "Sin fecha"}
           </h5>
         </div>
       </div>

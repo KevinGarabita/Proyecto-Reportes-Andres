@@ -5,7 +5,7 @@ export type ReportSummary = {
   folio_pisa: string;
   nombre_cliente: string;
   estado: ReportStatusType;
-  fecha_liquidacion: Date;
+  fecha_liquidacion: string | null;
 };
 
 export type CreateReportRequest = {
@@ -20,25 +20,25 @@ export type CreateReportRequest = {
   telefono_cliente: string;
   nombre_cliente: string;
 
-  tecnologia: string;
+  tecnologia: string | null;
 
   distrito: string;
   terminal: string;
 
   par: string;
-  metraje: number;
+  metraje: number | null;
 
-  tipo_os: string;
+  tipo_os: string | null;
 
   georeferencia_casa: string;
   georeferencia_terminal: string;
 
   alfanumerico: string;
 
-  supervisor_id: string;
-  tecnico_id: string;
+  supervisor_id: string | null;
+  tecnico_id: string | null;
 
-  fecha_liquidacion: string;
+  fecha_liquidacion: string | null;
 
   estado: ReportStatusType;
 };

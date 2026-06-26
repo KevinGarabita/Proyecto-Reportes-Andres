@@ -13,7 +13,7 @@ function InstallationSection({ report, setReport }: SectionProps) {
 
         <select
           className="form-select"
-          value={report.tecnologia}
+          value={report.tecnologia ?? ""}
           onChange={(e) =>
             setReport({
               ...report,
@@ -76,15 +76,19 @@ function InstallationSection({ report, setReport }: SectionProps) {
         <label className="form-label">Metraje</label>
 
         <input
-          type="number"
+          type="text"
+          inputMode="numeric"
           className="form-control"
-          value={report.metraje}
-          onChange={(e) =>
+          value={report.metraje ?? ""}
+          onChange={(e) => {
+            const value = e.target.value;
+
+            if (!/^\d*$/.test(value)) return;
             setReport({
               ...report,
-              metraje: Number(e.target.value),
-            })
-          }
+              metraje: e.target.value === "" ? null : Number(e.target.value),
+            });
+          }}
         />
       </div>
 
@@ -93,7 +97,7 @@ function InstallationSection({ report, setReport }: SectionProps) {
 
         <select
           className="form-select"
-          value={report.tipo_os}
+          value={report.tipo_os ?? ""}
           onChange={(e) =>
             setReport({
               ...report,

@@ -78,7 +78,7 @@ function GeneralSection({ report, setReport }: SectionProps) {
         <input
           type="date"
           className="form-control"
-          value={report.fecha_liquidacion}
+          value={report.fecha_liquidacion ?? ""}
           onChange={(e) =>
             setReport({
               ...report,
