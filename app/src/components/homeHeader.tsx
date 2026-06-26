@@ -16,7 +16,7 @@ function HomeHeader({ technicianName }: HomeHeaderProps) {
         </p>
       </div>
 
-      <SearchBar></SearchBar>
+      <SearchBar value="" onChange={() => {}}></SearchBar>
       <StatusTabs></StatusTabs>
     </div>
   );
