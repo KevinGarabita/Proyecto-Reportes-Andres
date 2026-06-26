@@ -7,7 +7,9 @@ import type {
 import { API_URL } from "../config/api";
 
 export async function getReports(): Promise<ReportSummary[]> {
-  const response = await fetch(`${API_URL}/reports/`);
+  const response = await fetch(`${API_URL}/reports/`, {
+    credentials: "include",
+  });
 
   if (!response.ok) {
     throw new Error("Error al obtener reportes");
@@ -17,7 +19,10 @@ export async function getReports(): Promise<ReportSummary[]> {
 }
 
 export async function getReport(id: string): Promise<ReportDetails> {
-  const response = await fetch(`${API_URL}/reports/${id}`);
+  const response = await fetch(`${API_URL}/reports/${id}`, {
+    credentials: "include",
+  });
+
   if (!response.ok) {
     throw new Error("Error al obtener reporte");
   }
@@ -28,6 +33,7 @@ export async function getReport(id: string): Promise<ReportDetails> {
 export async function deleteReport(reportId: string) {
   const response = await fetch(`${API_URL}/reports/${reportId}`, {
     method: "DELETE",
+    credentials: "include",
   });
 
   if (!response.ok) {
@@ -41,7 +47,10 @@ export async function updateReport(
 ): Promise<ReportDetails> {
   const response = await fetch(`${API_URL}/reports/${reportId}`, {
     method: "PUT",
-    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify(report),
   });
 
@@ -57,6 +66,7 @@ export async function createReport(
 ): Promise<ReportDetails> {
   const response = await fetch(`${API_URL}/reports/`, {
     method: "POST",
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },

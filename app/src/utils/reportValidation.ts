@@ -40,7 +40,7 @@ export function isGeolocationCompleted(report: CreateReportRequest): boolean {
 export function isAssignedPersonnelCompleted(
   report: CreateReportRequest,
 ): boolean {
-  return Boolean(report.supervisor_id && report.tecnico_id);
+  return Boolean(report.supervisor_id);
 }
 
 export function isReportCompleted(report: CreateReportRequest): boolean {

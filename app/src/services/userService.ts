@@ -1,12 +1,12 @@
-import { API_URL } from "../config/api";
-import type { user } from "../types/user";
+import { apiFetch } from "./api";
+import type { User } from "../types/user";
 import { Role } from "../types/userRole";
 
-export async function getSupervisors(): Promise<user[]> {
-  const response = await fetch(`${API_URL}/users/?role=${Role.SUPERVISOR}`);
+export async function getSupervisors(): Promise<User[]> {
+  const response = await apiFetch(`/users?role=${Role.SUPERVISOR}`);
 
   if (!response.ok) {
-    throw new Error("Error al obtener reportes");
+    throw new Error("Error al obtener supervisores");
   }
 
   return response.json();

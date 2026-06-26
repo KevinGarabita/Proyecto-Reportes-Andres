@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getSupervisors } from "../services/userService";
-import type { user } from "../types/user";
+import type { User } from "../types/user";
 import type { CreateReportRequest } from "../types/report";
 
 type SectionProps = {
@@ -9,7 +9,8 @@ type SectionProps = {
 };
 
 function AssignedPersonnelSection({ report, setReport }: SectionProps) {
-  const [supervisors, setSupervisors] = useState<user[]>([]);
+  const [supervisors, setSupervisors] = useState<User[]>([]);
+
   useEffect(() => {
     const fetchSupervisors = async () => {
       try {
@@ -22,41 +23,30 @@ function AssignedPersonnelSection({ report, setReport }: SectionProps) {
 
     fetchSupervisors();
   }, []);
+
   return (
-    <>
-      <div className="mb-4">
-        <label className="form-label">Supervisor</label>
+    <div className="mb-4">
+      <label className="form-label">Supervisor</label>
 
-        <select
-          className="form-select"
-          value={report.supervisor_id ?? ""}
-          onChange={(e) =>
-            setReport({
-              ...report,
-              supervisor_id: e.target.value,
-            })
-          }
-        >
-          <option>Seleccionar supervisor...</option>
+      <select
+        className="form-select"
+        value={report.supervisor_id ?? ""}
+        onChange={(e) =>
+          setReport({
+            ...report,
+            supervisor_id: e.target.value,
+          })
+        }
+      >
+        <option value="">Seleccionar supervisor...</option>
 
-          {supervisors.map((supervisor) => (
-            <option key={supervisor.id} value={supervisor.id}>
-              {supervisor.name}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <div>
-        <label className="form-label">Técnico</label>
-
-        <input
-          className="form-control"
-          value={report.tecnico_id ?? ""}
-          onChange={(e) => setReport({ ...report, tecnico_id: e.target.value })}
-        />
-      </div>
-    </>
+        {supervisors.map((supervisor) => (
+          <option key={supervisor.id} value={supervisor.id}>
+            {supervisor.name}
+          </option>
+        ))}
+      </select>
+    </div>
   );
 }
 

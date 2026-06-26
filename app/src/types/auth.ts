@@ -1,12 +1,7 @@
 import type { RoleType } from "./userRole";
 
-export type User = {
+export type AuthUser = {
   id: string;
   name: string;
   role: RoleType;
-};
-
-export type UserReference = {
-  id: string;
-  name: string;
 };
