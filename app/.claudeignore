@@ -1,0 +1,60 @@
+# Dependencias
+node_modules/
+
+# Builds
+dist/
+build/
+out/
+
+# Frameworks
+.next/
+.nuxt/
+
+# Cachés
+.cache/
+.vite/
+.parcel-cache/
+.turbo/
+
+# Coverage
+coverage/
+
+# Git
+.git/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Variables de entorno
+.env
+.env.local
+.env.*
+
+# Archivos generados
+*.min.js
+*.map
+
+# IDE
+.vscode/
+.idea/
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Archivos grandes
+*.zip
+*.rar
+*.7z
+
+# Binarios
+*.exe
+*.dll
+
+# PDFs y multimedia (si no son relevantes)
+*.pdf
+*.mp4
+*.mov

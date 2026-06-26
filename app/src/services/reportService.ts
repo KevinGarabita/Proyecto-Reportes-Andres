@@ -1,6 +1,10 @@
-import type { ReportDetails, ReportSummary } from "../types/report";
+import type {
+  CreateReportRequest,
+  ReportDetails,
+  ReportSummary,
+} from "../types/report";
 
-const API_URL = "http://localhost:8000";
+import { API_URL } from "../config/api";
 
 export async function getReports(): Promise<ReportSummary[]> {
   const response = await fetch(`${API_URL}/reports/`);
@@ -29,4 +33,40 @@ export async function deleteReport(reportId: string) {
   if (!response.ok) {
     throw new Error("Error al eliminar reporte");
   }
+}
+
+export async function updateReport(
+  reportId: string,
+  report: CreateReportRequest,
+): Promise<ReportDetails> {
+  const response = await fetch(`${API_URL}/reports/${reportId}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(report),
+  });
+
+  if (!response.ok) {
+    throw new Error("Error al actualizar reporte");
+  }
+
+  return response.json();
+}
+
+export async function createReport(
+  report: CreateReportRequest,
+): Promise<ReportDetails> {
+  const response = await fetch(`${API_URL}/reports/`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(report),
+  });
+
+  if (!response.ok) {
+    console.log(await response.json());
+    throw new Error("Error al crear reporte");
+  }
+
+  return response.json();
 }

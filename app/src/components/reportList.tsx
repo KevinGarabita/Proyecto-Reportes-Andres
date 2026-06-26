@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import OrderCard from "./orderCard";
+import OrderCard from "./OrderCard";
 import type { ReportSummary } from "../types/report";
 import { ReportAction, type ReportActionType } from "../types/reportAction";
 import { deleteReport, getReports } from "../services/reportService";

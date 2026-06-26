@@ -1,14 +1,51 @@
 import { useEffect, useState } from "react";
 import PageHeader from "../components/pageHeader";
 import { useParams } from "react-router-dom";
-import { getReport } from "../services/reportService";
-import type { ReportDetails } from "../types/report";
+import {
+  createReport,
+  getReport,
+  updateReport,
+} from "../services/reportService";
 import SectionsList from "../components/sectionsList";
+import type { CreateReportRequest } from "../types/report";
+import { ReportStatus } from "../types/reportStatus";
+import BottomActionBar from "../components/bottomActionBar";
+import { isReportCompleted } from "../utils/reportValidation";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function CreateReportPage() {
+  const navigate = useNavigate();
   const { id } = useParams();
-  const [report, setReport] = useState<ReportDetails | null>(null);
+  const [report, setReport] = useState<CreateReportRequest>({
+    cope: "",
+    expediente_pic: "",
+    folio_pisa: "",
+    folio_plex: "",
+    tipo_tarea: "",
+    telefono_cliente: "",
+    nombre_cliente: "",
 
+    tecnologia: null,
+
+    distrito: "",
+    terminal: "",
+    par: "",
+    metraje: null,
+
+    tipo_os: null,
+
+    georeferencia_casa: "",
+    georeferencia_terminal: "",
+    alfanumerico: "",
+
+    supervisor_id: null,
+    tecnico_id: null,
+
+    fecha_liquidacion: null,
+
+    estado: "DRAFT",
+  });
   useEffect(() => {
     console.log("create");
     if (!id) return;
@@ -24,6 +61,78 @@ function CreateReportPage() {
 
     fetchReport();
   }, [id]);
+
+  const handleSave = async () => {
+    const data = {
+      ...report,
+      estado: ReportStatus.DRAFT,
+    };
+    try {
+      if (id) {
+        await updateReport(id, data);
+      } else {
+        await createReport(data);
+      }
+
+      await Swal.fire({
+        icon: "success",
+        title: "Borrador guardado",
+        text: "El reporte se guardó correctamente.",
+        timer: 1800,
+        showConfirmButton: false,
+      });
+    } catch (error) {
+      console.error(error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "No se pudo guardar el borrador.",
+      });
+    }
+  };
+
+  const handleSubmit = async () => {
+    if (!isReportCompleted(report)) {
+      await Swal.fire({
+        icon: "warning",
+        title: "Información incompleta",
+        text: "Debes completar todas las secciones antes de enviar el reporte.",
+      });
+
+      return;
+    }
+
+    const data = {
+      ...report,
+      estado: ReportStatus.REVIEW,
+    };
+
+    try {
+      if (id) {
+        await updateReport(id, data);
+      } else {
+        await createReport(data);
+      }
+
+      await Swal.fire({
+        icon: "success",
+        title: "Reporte enviado",
+        text: "El reporte fue enviado correctamente a revisión.",
+        confirmButtonText: "Aceptar",
+      });
+
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "No se pudo enviar el reporte.",
+      });
+    }
+  };
+
   return (
     <div>
       <PageHeader>
@@ -47,7 +156,12 @@ function CreateReportPage() {
           </div>
         </div>
       </PageHeader>
-      <SectionsList></SectionsList>
+      <SectionsList report={report} setReport={setReport}></SectionsList>
+      <BottomActionBar
+        onSave={handleSave}
+        onSubmit={handleSubmit}
+        canSubmit={isReportCompleted(report)}
+      ></BottomActionBar>
     </div>
   );
 }
