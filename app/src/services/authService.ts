@@ -1,4 +1,4 @@
-import { API_URL } from "../config/api";
+import { apiFetch } from "./api";
 import type { AuthUser } from "../types/auth";
 
 type LoginRequest = {
@@ -7,12 +7,8 @@ type LoginRequest = {
 };
 
 export async function loginService(request: LoginRequest): Promise<AuthUser> {
-  const response = await fetch(`${API_URL}/auth/login`, {
+  const response = await apiFetch("/auth/login", {
     method: "POST",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-    },
     body: JSON.stringify(request),
   });
 
@@ -25,9 +21,7 @@ export async function loginService(request: LoginRequest): Promise<AuthUser> {
 }
 
 export async function me(): Promise<AuthUser> {
-  const response = await fetch(`${API_URL}/auth/me`, {
-    credentials: "include",
-  });
+  const response = await apiFetch("/auth/me");
 
   if (!response.ok) {
     throw new Error("No autenticado");
