@@ -1,13 +1,16 @@
 import { API_URL } from "../config/api";
 
 export async function apiFetch(endpoint: string, options: RequestInit = {}) {
+  const headers = new Headers(options.headers);
+
+  if (!(options.body instanceof FormData)) {
+    headers.set("Content-Type", "application/json");
+  }
+
   const response = await fetch(`${API_URL}${endpoint}`, {
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
     ...options,
+    credentials: "include",
+    headers,
   });
 
   if (response.status === 401) {
