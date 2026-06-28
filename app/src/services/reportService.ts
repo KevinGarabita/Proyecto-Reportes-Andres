@@ -5,6 +5,7 @@ import type {
   ReportDetails,
   ReportSummary,
 } from "../types/report";
+import type { EvidenceFile, EvidenceKey } from "../types/evidence";
 
 export async function getReports(): Promise<ReportSummary[]> {
   const response = await apiFetch("/reports/");
@@ -39,13 +40,26 @@ export async function deleteReport(reportId: string): Promise<void> {
 export async function updateReport(
   reportId: string,
   report: CreateReportRequest,
+  evidences: Partial<Record<EvidenceKey, EvidenceFile>>,
 ): Promise<ReportDetails> {
+  const formData = new FormData();
+
+  formData.append("report", JSON.stringify(report));
+
+  Object.entries(evidences).forEach(([key, evidence]) => {
+    if (!evidence) return;
+
+    formData.append(key.toLowerCase(), evidence.file);
+  });
+
   const response = await apiFetch(`/reports/${reportId}`, {
     method: "PUT",
-    body: JSON.stringify(report),
+    body: formData,
   });
 
   if (!response.ok) {
+    const error = await response.json();
+    console.error(error);
     throw new Error("Error al actualizar reporte");
   }
 
@@ -54,16 +68,34 @@ export async function updateReport(
 
 export async function createReport(
   report: CreateReportRequest,
+  evidences: Partial<Record<EvidenceKey, EvidenceFile>>,
 ): Promise<ReportDetails> {
+  const formData = new FormData();
+
+  formData.append("report", JSON.stringify(report));
+
+  Object.entries(evidences).forEach(([key, evidence]) => {
+    if (evidence == null) return;
+
+    formData.append(key, evidence.file);
+  });
+
+  console.log(formData.get("report"));
+
+  for (const [key, value] of formData.entries()) {
+    console.log(key, value);
+  }
   const response = await apiFetch("/reports/", {
     method: "POST",
-    body: JSON.stringify(report),
+    body: formData,
   });
 
   if (!response.ok) {
     const error = await response.json();
-    console.error(error);
-    throw new Error("Error al crear reporte");
+
+    console.log(error);
+
+    throw new Error(JSON.stringify(error));
   }
 
   return response.json();

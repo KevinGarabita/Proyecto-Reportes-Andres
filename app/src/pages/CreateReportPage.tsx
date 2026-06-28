@@ -11,10 +11,11 @@ import {
   getReport,
   updateReport,
 } from "../services/reportService";
-
+import type { EvidenceFile, EvidenceKey } from "../types/evidence";
 import type { CreateReportRequest } from "../types/report";
 import { ReportStatus } from "../types/reportStatus";
 import { isReportCompleted } from "../utils/reportValidation";
+import EvidenceList from "../components/evidencesList";
 
 function CreateReportPage() {
   const navigate = useNavigate();
@@ -23,6 +24,9 @@ function CreateReportPage() {
   const [loading, setLoading] = useState(!!id);
 
   const [step, setStep] = useState<"form" | "evidences">("form");
+  const [evidences, setEvidences] = useState<
+    Partial<Record<EvidenceKey, EvidenceFile>>
+  >({});
   const [report, setReport] = useState<CreateReportRequest>({
     cope: "",
     expediente_pic: "",
@@ -53,7 +57,9 @@ function CreateReportPage() {
   });
 
   const canContinue = isReportCompleted(report);
-  const canSubmit = canContinue;
+  const hasAllEvidences = Object.keys(evidences).length === 8;
+
+  const canSubmit = canContinue && hasAllEvidences;
 
   useEffect(() => {
     if (!id) return;
@@ -88,9 +94,9 @@ function CreateReportPage() {
 
     try {
       if (id) {
-        await updateReport(id, data);
+        await updateReport(id, data, {});
       } else {
-        const createdReport = await createReport(data);
+        const createdReport = await createReport(data, {});
 
         navigate(`/reports/${createdReport.id}`, {
           replace: true,
@@ -133,9 +139,9 @@ function CreateReportPage() {
 
     try {
       if (id) {
-        await updateReport(id, data);
+        await updateReport(id, data, {});
       } else {
-        await createReport(data);
+        await createReport(data, evidences);
       }
 
       await Swal.fire({
@@ -206,13 +212,15 @@ function CreateReportPage() {
           />
         </>
       ) : (
-        <div>
+        <>
+          <EvidenceList evidences={evidences} setEvidences={setEvidences} />
+
           <BottomActionBar
             onSubmit={handleSubmit}
             canSubmit={canSubmit}
             submitText="Enviar a revisión"
-          ></BottomActionBar>{" "}
-        </div>
+          />
+        </>
       )}
     </div>
   );
