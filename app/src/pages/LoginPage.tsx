@@ -31,7 +31,7 @@ function LoginPage() {
           break;
 
         case "SUPERVISOR":
-          navigate("/supervisor", { replace: true });
+          navigate("/dashboard", { replace: true });
           break;
 
         default:

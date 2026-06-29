@@ -3,7 +3,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import CreateReportPage from "./pages/CreateReportPage";
 import LoginPage from "./pages/LoginPage";
+import ManagementPage from "./pages/ManagementPage";
+
 import ProtectedRoute from "./components/protectedRoute";
+import RoleRoute from "./components/RoleRoute";
+import UnauthorizedPage from "./pages/UnauthorizedPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   return (
@@ -11,11 +16,15 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginPage />} />
 
+        <Route path="/unauthorized" element={<UnauthorizedPage />} />
+
         <Route
           path="/home"
           element={
             <ProtectedRoute>
-              <HomePage />
+              <RoleRoute roles={["TECHNICIAN"]}>
+                <HomePage />
+              </RoleRoute>
             </ProtectedRoute>
           }
         />
@@ -24,7 +33,9 @@ function App() {
           path="/reports/create"
           element={
             <ProtectedRoute>
-              <CreateReportPage />
+              <RoleRoute roles={["TECHNICIAN"]}>
+                <CreateReportPage />
+              </RoleRoute>
             </ProtectedRoute>
           }
         />
@@ -33,10 +44,25 @@ function App() {
           path="/reports/:id"
           element={
             <ProtectedRoute>
-              <CreateReportPage />
+              <RoleRoute roles={["TECHNICIAN"]}>
+                <CreateReportPage />
+              </RoleRoute>
             </ProtectedRoute>
           }
         />
+
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <RoleRoute roles={["PORTALERO", "SUPERVISOR"]}>
+                <ManagementPage />
+              </RoleRoute>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );

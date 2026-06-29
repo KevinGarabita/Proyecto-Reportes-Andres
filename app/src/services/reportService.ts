@@ -3,11 +3,11 @@ import { apiFetch } from "./api";
 import type {
   CreateReportRequest,
   ReportDetails,
-  ReportSummary,
+  ReportsResponse,
 } from "../types/report";
 import type { EvidenceFile, EvidenceKey } from "../types/evidence";
 
-export async function getReports(): Promise<ReportSummary[]> {
+export async function getReports(): Promise<ReportsResponse> {
   const response = await apiFetch("/reports/");
 
   if (!response.ok) {
@@ -99,4 +99,14 @@ export async function createReport(
   }
 
   return response.json();
+}
+
+export async function downloadPdf(id: string) {
+  const response = await apiFetch(`/reports/${id}/pdf`);
+
+  if (!response.ok) {
+    throw new Error("No se pudo descargar el PDF");
+  }
+
+  return response.blob();
 }
