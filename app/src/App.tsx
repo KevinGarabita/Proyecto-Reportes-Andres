@@ -3,12 +3,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import CreateReportPage from "./pages/CreateReportPage";
 import LoginPage from "./pages/LoginPage";
-import ManagementPage from "./pages/ManagementPage";
 
 import ProtectedRoute from "./components/protectedRoute";
 import RoleRoute from "./components/RoleRoute";
 import UnauthorizedPage from "./pages/UnauthorizedPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import ReportPage from "./pages/ReportPage";
 
 function App() {
   return (
@@ -55,8 +55,16 @@ function App() {
           path="/dashboard"
           element={
             <ProtectedRoute>
+              <RoleRoute roles={["PORTALERO", "SUPERVISOR"]}></RoleRoute>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard/report/:id"
+          element={
+            <ProtectedRoute>
               <RoleRoute roles={["PORTALERO", "SUPERVISOR"]}>
-                <ManagementPage />
+                <ReportPage></ReportPage>
               </RoleRoute>
             </ProtectedRoute>
           }
