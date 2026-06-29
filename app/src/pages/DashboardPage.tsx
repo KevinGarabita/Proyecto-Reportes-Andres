@@ -39,7 +39,7 @@ function DashboardPage() {
   }
   return (
     <>
-      <DashboardNav user={user}></DashboardNav>
+      <DashboardNav></DashboardNav>
       {reports.stats && <DashboardStats stats={reports.stats}></DashboardStats>}
 
       <DashboardReportList reports={reports.reports}></DashboardReportList>
