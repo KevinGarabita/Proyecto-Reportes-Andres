@@ -61,3 +61,15 @@ export type ReportDetails = ReportBase & {
 
   pdf_storage_path: string | null;
 };
+
+export type ReportStats = {
+  pending: number;
+  approved: number;
+  total: number;
+  period_days: number;
+};
+
+export type ReportsResponse = {
+  stats: ReportStats | null;
+  reports: ReportSummary[];
+};

@@ -29,3 +29,9 @@ export async function me(): Promise<AuthUser> {
 
   return response.json();
 }
+
+export async function logoutService() {
+  await apiFetch("/auth/logout", {
+    method: "POST",
+  });
+}
