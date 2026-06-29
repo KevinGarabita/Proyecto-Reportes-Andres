@@ -9,6 +9,7 @@ import RoleRoute from "./components/RoleRoute";
 import UnauthorizedPage from "./pages/UnauthorizedPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ReportPage from "./pages/ReportPage";
+import DashboardPage from "./pages/DashboardPage";
 
 function App() {
   return (
@@ -55,7 +56,9 @@ function App() {
           path="/dashboard"
           element={
             <ProtectedRoute>
-              <RoleRoute roles={["PORTALERO", "SUPERVISOR"]}></RoleRoute>
+              <RoleRoute roles={["PORTALERO", "SUPERVISOR"]}>
+                <DashboardPage></DashboardPage>
+              </RoleRoute>
             </ProtectedRoute>
           }
         />
