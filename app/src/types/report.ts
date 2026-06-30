@@ -1,3 +1,4 @@
+import type { Coordinate } from "./coordinate";
 import type { ReportStatusType } from "./reportStatus";
 import type { UserReference } from "./user";
 
@@ -23,8 +24,8 @@ type ReportBase = {
 
   tipo_os: string | null;
 
-  georeferencia_casa: string;
-  georeferencia_terminal: string;
+  georeferencia_casa: Coordinate;
+  georeferencia_terminal: Coordinate;
 
   alfanumerico: string;
 

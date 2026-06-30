@@ -32,8 +32,10 @@ export function isInstallationCompleted(report: CreateReportRequest): boolean {
 
 export function isGeolocationCompleted(report: CreateReportRequest): boolean {
   return (
-    report.georeferencia_casa.trim() !== "" &&
-    report.georeferencia_terminal.trim() !== ""
+    report.georeferencia_casa.latitude !== null &&
+    report.georeferencia_casa.longitude !== null &&
+    report.georeferencia_terminal.latitude !== null &&
+    report.georeferencia_terminal.longitude !== null
   );
 }
 
