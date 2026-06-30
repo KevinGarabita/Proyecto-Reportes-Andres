@@ -16,6 +16,7 @@ import type { CreateReportRequest } from "../types/report";
 import { ReportStatus } from "../types/reportStatus";
 import { isReportCompleted } from "../utils/reportValidation";
 import EvidenceList from "../components/evidencesList";
+import { FiArrowLeft } from "react-icons/fi";
 
 function CreateReportPage() {
   const navigate = useNavigate();
@@ -146,7 +147,7 @@ function CreateReportPage() {
 
     try {
       if (id) {
-        await updateReport(id, data, {});
+        await updateReport(id, data, evidences);
       } else {
         await createReport(data, evidences);
       }
@@ -187,21 +188,31 @@ function CreateReportPage() {
         <div className="row">
           <div className="col">
             <div className="d-flex align-items-center gap-3">
-              <div className="logo-circle">📶</div>
+              <button
+                type="button"
+                className="btn btn-outline-light rounded-circle d-flex align-items-center justify-content-center"
+                style={{ width: "48px", height: "48px" }}
+                onClick={() => {
+                  if (step === "evidences") {
+                    setStep("form");
+                  } else {
+                    navigate("/home");
+                  }
+                }}
+              >
+                <FiArrowLeft size={24} />
+              </button>
 
-              <div>
-                <h4 className="fw-bold text-white mb-1">
+              <div className="d-flex flex-column justify-content-center">
+                <h4 className="fw-bold text-white mb-0">
                   Captura de información
                 </h4>
 
-                <p
-                  className="text-secondary mb-0"
-                  style={{ minHeight: "24px" }}
-                >
-                  {report.folio_pisa
-                    ? `Folio Pisa ${report.folio_pisa}`
-                    : "\u00A0"}
-                </p>
+                {report.folio_pisa && (
+                  <p className="text-secondary mb-0 mt-1">
+                    Folio Pisa {report.folio_pisa}
+                  </p>
+                )}
               </div>
             </div>
           </div>
