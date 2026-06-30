@@ -12,34 +12,34 @@ type Props = {
 function StatusTabs({ status, stats, onChange }: Props) {
   return (
     <div className="container-fluid">
-      <div className="row gx-5 mt-4">
-        <div className="col-4">
+      <div className="row g-4 gy-md-0 mt-4">
+        <div className="col-md-4">
           <button
             className={`btn ${
               status === "DRAFT" ? "btn-primary" : "btn-outline-primary"
-            } w-100`}
+            } w-100 h-100 text-break`}
             onClick={() => onChange("DRAFT")}
           >
             Pendientes ({stats?.draft ?? 0})
           </button>
         </div>
 
-        <div className="col-4">
+        <div className="col-md-4">
           <button
             className={`btn ${
               status === "REVIEW" ? "btn-primary" : "btn-outline-primary"
-            } w-100`}
+            } w-100 h-100 text-break`}
             onClick={() => onChange("REVIEW")}
           >
             En revisión ({stats?.review ?? 0})
           </button>
         </div>
 
-        <div className="col-4">
+        <div className="col-md-4">
           <button
             className={`btn ${
               status === "APPROVED" ? "btn-primary" : "btn-outline-primary"
-            } w-100`}
+            } w-100 h-100 text-break`}
             onClick={() => onChange("APPROVED")}
           >
             Aprobados ({stats?.approved ?? 0})
