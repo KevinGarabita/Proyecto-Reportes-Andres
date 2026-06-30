@@ -17,22 +17,22 @@ function DashboardStats({ stats }: DashboardStats) {
         </div>
       </div>
 
-      <div className="row mt-3">
-        <div className="col-4">
+      <div className="row mt-3 gy-4 gy-sm-0">
+        <div className="col-12 col-sm-4">
           {" "}
           <StatsCard
             title="solicitudes pendientes"
             number={stats.pending}
           ></StatsCard>
         </div>
-        <div className="col-4">
+        <div className="col-12 col-sm-4">
           {" "}
           <StatsCard
             title="órdenes liquidadas"
             number={stats.approved}
           ></StatsCard>
         </div>
-        <div className="col-4">
+        <div className="col-12 col-sm-4">
           {" "}
           <StatsCard title="Total" number={stats.total}></StatsCard>
         </div>
