@@ -1,3 +1,32 @@
-.bg-telefield {
-  background-color: rgb(15, 23, 42);
+:root {
+  /* Brand */
+  --primary: #489800;
+  --primary-dark: #287f00;
+  --primary-darker: #163d09;
+  --primary-light: #6faf3a;
+  --primary-lighter: #8bc34a;
+
+  /* UI */
+  --background: #f7f9f6;
+  --surface: #ffffff;
+  --border: #dce6da;
+
+  /* Text */
+  --text: #1f2937;
+  --text-secondary: #6b7280;
+
+  /* Status */
+  --success: #489800;
+  --warning: #f59e0b;
+  --danger: #dc2626;
+  --info: #2563eb;
+}
+
+.bg-Uxmal {
+  background: var(--primary-darker);
+}
+
+.logo {
+  width: 120px;
+  height: auto;
 }

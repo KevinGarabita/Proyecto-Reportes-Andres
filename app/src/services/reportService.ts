@@ -37,7 +37,7 @@ export async function getReports(
     params.append("end_date", filters.endDate);
   }
 
-  const response = await apiFetch(`/reports?${params.toString()}`);
+  const response = await apiFetch(`/reports/?${params.toString()}`);
 
   if (!response.ok) {
     throw new Error("No se pudieron obtener los reportes.");

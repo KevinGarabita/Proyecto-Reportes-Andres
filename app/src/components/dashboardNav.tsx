@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
-
+import uxmalLogo from "../assets/logo-uxmal.png";
 function DashboardNav() {
   const [open, setOpen] = useState(false);
   const { user } = useAuth();
@@ -8,10 +8,10 @@ function DashboardNav() {
     return null;
   }
   return (
-    <nav className="navbar navbar-expand-lg bg-telefield navbar-dark">
+    <nav className="navbar navbar-expand-lg bg-Uxmal navbar-dark">
       <div className="container-fluid ">
         <a className="navbar-brand" href="#">
-          Telefield
+          <img src={uxmalLogo} alt="Uxmal Technologies" className="logo" />
         </a>
 
         <button
