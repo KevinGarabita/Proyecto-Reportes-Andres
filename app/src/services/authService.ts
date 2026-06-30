@@ -23,8 +23,8 @@ export async function loginService(request: LoginRequest): Promise<AuthUser> {
 export async function me(): Promise<AuthUser> {
   const response = await apiFetch("/auth/me");
 
-  if (!response.ok) {
-    throw new Error("No autenticado");
+  if (response.status === 401) {
+    throw new Error("UNAUTHORIZED");
   }
 
   return response.json();

@@ -3,18 +3,47 @@ import { apiFetch } from "./api";
 import type {
   CreateReportRequest,
   ReportDetails,
+  ReportFilters,
   ReportsResponse,
 } from "../types/report";
 import type { EvidenceFile, EvidenceKey } from "../types/evidence";
 
-export async function getReports(): Promise<ReportsResponse> {
-  const response = await apiFetch("/reports/");
+export async function getReports(
+  filters?: ReportFilters,
+): Promise<ReportsResponse> {
+  const params = new URLSearchParams();
 
-  if (!response.ok) {
-    throw new Error("Error al obtener reportes");
+  if (filters?.status) {
+    params.append("status", filters.status);
   }
 
-  return response.json();
+  if (filters?.search) {
+    params.append("search", filters.search);
+  }
+
+  if (filters?.page !== undefined) {
+    params.append("page", filters.page.toString());
+  }
+
+  if (filters?.pageSize !== undefined) {
+    params.append("page_size", filters.pageSize.toString());
+  }
+
+  if (filters?.startDate) {
+    params.append("start_date", filters.startDate);
+  }
+
+  if (filters?.endDate) {
+    params.append("end_date", filters.endDate);
+  }
+
+  const response = await apiFetch(`/reports?${params.toString()}`);
+
+  if (!response.ok) {
+    throw new Error("No se pudieron obtener los reportes.");
+  }
+
+  return await response.json();
 }
 
 export async function getReport(id: string): Promise<ReportDetails> {

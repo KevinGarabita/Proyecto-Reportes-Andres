@@ -64,13 +64,27 @@ export type ReportDetails = ReportBase & {
 };
 
 export type ReportStats = {
-  pending: number;
+  draft: number;
+  review: number;
   approved: number;
   total: number;
-  period_days: number;
 };
 
 export type ReportsResponse = {
   stats: ReportStats | null;
   reports: ReportSummary[];
+};
+
+export type ReportFilters = {
+  status?: ReportStatusType;
+
+  page?: number;
+
+  pageSize?: number;
+
+  search?: string;
+
+  startDate?: string;
+
+  endDate?: string;
 };

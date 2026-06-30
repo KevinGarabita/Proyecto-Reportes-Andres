@@ -13,9 +13,5 @@ export async function apiFetch(endpoint: string, options: RequestInit = {}) {
     headers,
   });
 
-  if (response.status === 401) {
-    throw new Error("UNAUTHORIZED");
-  }
-
   return response;
 }
