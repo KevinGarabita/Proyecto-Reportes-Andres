@@ -5,28 +5,116 @@
   --primary-darker: #163d09;
   --primary-light: #6faf3a;
   --primary-lighter: #8bc34a;
+  --primary-nav: #1c4a0c;
 
-  /* UI */
-  --background: #f7f9f6;
-  --surface: #ffffff;
-  --border: #dce6da;
+  /* Dark Theme */
+  --background: #25292f;
+  --surface: #31363d;
+  --surface-hover: #3a4048;
+  --border: #4a5058;
 
   /* Text */
-  --text: #1f2937;
-  --text-secondary: #6b7280;
+  --text: #f8f9fa;
+  --text-secondary: #adb5bd;
 
   /* Status */
   --success: #489800;
   --warning: #f59e0b;
   --danger: #dc2626;
   --info: #2563eb;
+
+  --radius: 12px;
+  --transition: 0.2s ease;
+}
+
+.text-Uxmal {
+  color: var(--primary);
 }
 
 .bg-Uxmal {
-  background: var(--primary-darker);
+  background: linear-gradient(180deg, var(--primary-light), var(--primary));
+  border: none;
+  transition: var(--transition);
+}
+.bg-Uxmal-nav {
+  background-color: var(--primary-nav);
+}
+
+.bg-Uxmal:hover {
+  background: linear-gradient(180deg, var(--primary), var(--primary-dark));
+}
+.login-page {
+  background: var(--background);
+}
+
+.form-control {
+  background: var(--surface);
+
+  color: var(--text);
+
+  border: 1px solid var(--border);
+
+  border-radius: var(--radius);
+
+  padding: 0.8rem 1rem;
+}
+
+.form-control::placeholder {
+  color: var(--text-secondary);
+}
+
+.form-control:focus {
+  background: var(--surface);
+
+  color: var(--text);
+
+  border-color: var(--primary);
+
+  box-shadow: 0 0 0 0.18rem rgba(72, 152, 0, 0.18);
+}
+
+.input-group-text {
+  background: var(--surface);
+
+  color: var(--text-secondary);
+
+  border: 1px solid var(--border);
+}
+
+.input-group .btn {
+  background: var(--surface);
+
+  color: var(--text-secondary);
+
+  border: 1px solid var(--border);
+
+  transition: var(--transition);
+}
+
+.btn {
+  transition: var(--transition);
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.form-check-input {
+  background: var(--surface);
+
+  border-color: var(--border);
+}
+
+.form-check-input:checked {
+  background: var(--primary);
+
+  border-color: var(--primary);
 }
 
 .logo {
-  width: 120px;
+  display: block;
+  width: 100%;
+  max-width: 180px;
   height: auto;
+  object-fit: contain;
 }
