@@ -8,7 +8,7 @@ function DashboardNav() {
     return null;
   }
   return (
-    <nav className="navbar navbar-expand-lg bg-Uxmal navbar-dark">
+    <nav className="navbar navbar-expand-lg bg-Uxmal-nav navbar-dark">
       <div className="container-fluid ">
         <a className="navbar-brand" href="#">
           <img src={uxmalLogo} alt="Uxmal Technologies" className="logo" />
