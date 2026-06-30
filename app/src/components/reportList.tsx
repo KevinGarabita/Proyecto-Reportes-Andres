@@ -1,70 +1,62 @@
-import { useEffect, useState } from "react";
-import OrderCard from "./orderCard";
-import type { ReportsResponse } from "../types/report";
-import { ReportAction, type ReportActionType } from "../types/reportAction";
-import { deleteReport, getReports } from "../services/reportService";
 import { useNavigate } from "react-router-dom";
 
-function ReportList() {
+import OrderCard from "./orderCard";
+
+import type { ReportSummary } from "../types/report";
+import { ReportAction, type ReportActionType } from "../types/reportAction";
+
+type Props = {
+  reports: ReportSummary[];
+  loading: boolean;
+
+  onDelete: (reportId: string) => Promise<void>;
+};
+
+function ReportList({ reports, loading, onDelete }: Props) {
   const navigate = useNavigate();
-  const [reports, setReports] = useState<ReportsResponse>({
-    stats: null,
-    reports: [],
-  });
-
-  const handleDelete = async (reportId: string) => {
-    try {
-      await deleteReport(reportId);
-
-      setReports((current) => ({
-        ...current,
-        reports: current.reports.filter((report) => report.id !== reportId),
-      }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const handleCapture = (reportId: string) => navigate(`/reports/${reportId}`);
-
-  useEffect(() => {
-    console.log("report list");
-    const fetchReports = async () => {
-      try {
-        const data = await getReports();
-        console.log(data);
-        setReports(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchReports();
-  }, []);
 
   const handleAction = (type: ReportActionType, reportId: string) => {
     switch (type) {
       case ReportAction.Capture:
         handleCapture(reportId);
         break;
+
       case ReportAction.Delete:
-        handleDelete(reportId);
+        onDelete(reportId);
         break;
+
       case ReportAction.Review:
-        //aqui no hace nada
         break;
+
       case ReportAction.Download:
-        //logica para descargar el pdf
         break;
     }
   };
 
+  if (loading) {
+    return (
+      <div className="container py-5 text-center">
+        <div className="spinner-border" />
+      </div>
+    );
+  }
+
+  if (reports.length === 0) {
+    return (
+      <div className="container py-5 text-center text-secondary">
+        No hay reportes.
+      </div>
+    );
+  }
+
   return (
     <div className="container" style={{ paddingBottom: "120px" }}>
       <div className="row gy-5 py-1">
-        {reports.reports.map((report) => (
+        {reports.map((report) => (
           <div key={report.id} className="col-12">
-            <OrderCard report={report} onAction={handleAction}></OrderCard>
+            <OrderCard report={report} onAction={handleAction} />
           </div>
         ))}
       </div>

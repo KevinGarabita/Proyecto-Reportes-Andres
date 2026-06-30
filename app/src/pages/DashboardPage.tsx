@@ -11,10 +11,10 @@ function DashboardPage() {
 
   const [reports, setReports] = useState<ReportsResponse>({
     stats: {
-      pending: 0,
+      draft: 0,
+      review: 0,
       approved: 0,
       total: 0,
-      period_days: 30,
     },
     reports: [],
   });

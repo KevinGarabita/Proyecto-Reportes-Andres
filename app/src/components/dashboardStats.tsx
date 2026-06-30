@@ -22,7 +22,7 @@ function DashboardStats({ stats }: DashboardStats) {
           {" "}
           <StatsCard
             title="solicitudes pendientes"
-            number={stats.pending}
+            number={stats.review}
           ></StatsCard>
         </div>
         <div className="col-12 col-sm-4">

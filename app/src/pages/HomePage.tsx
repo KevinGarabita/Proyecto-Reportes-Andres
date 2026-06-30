@@ -1,29 +1,54 @@
-import ReportList from "../components/reportList";
-import HomeHeader from "../components/homeHeader";
 import { useNavigate } from "react-router-dom";
-import PageHeader from "../components/pageHeader";
+
 import FloatingButton from "../components/floatingButton";
+import HomeHeader from "../components/homeHeader";
+import PageHeader from "../components/pageHeader";
+import ReportList from "../components/reportList";
+
 import { useAuth } from "../hooks/useAuth";
+import { useReports } from "../hooks/useReports";
+
 function HomePage() {
   const navigate = useNavigate();
+
   const { user, loading } = useAuth();
+
+  const {
+    reports,
+    stats,
+    loading: loadingReports,
+    filters,
+    setStatus,
+    deleteReport,
+  } = useReports();
 
   if (loading) {
     return <div>Cargando...</div>;
   }
+
   if (!user) {
     return null;
   }
+
   return (
-    <div>
+    <>
       <PageHeader>
-        <HomeHeader technicianName={user.name}></HomeHeader>
+        <HomeHeader
+          technicianName={user.name}
+          status={filters.status ?? "DRAFT"}
+          stats={stats}
+          onStatusChange={setStatus}
+        />
       </PageHeader>
-      <ReportList></ReportList>
-      <FloatingButton
-        onClick={() => navigate("/reports/create")}
-      ></FloatingButton>
-    </div>
+
+      <ReportList
+        reports={reports}
+        loading={loadingReports}
+        onDelete={deleteReport}
+      />
+
+      <FloatingButton onClick={() => navigate("/reports/create")} />
+    </>
   );
 }
 
