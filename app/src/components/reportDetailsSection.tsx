@@ -1,7 +1,8 @@
-import { BsCpu, BsHash, BsPeople, BsPerson } from "react-icons/bs";
+import { BsCpu, BsGeoAlt, BsHash, BsPeople, BsPerson } from "react-icons/bs";
 
 import ReportSection from "./report/reportSection";
 import ReportFields from "./report/reportFields";
+import GeoreferenceSection from "./georeferenceSection";
 
 import {
   customerFields,
@@ -10,15 +11,19 @@ import {
   technicalFields,
 } from "../constants/reportSections";
 
-import type { ReportDetails as ReportDetailsType } from "../types/report";
+import type { ReportDetails } from "../types/report";
 
 type ReportDetailsSectionProps = {
-  report: ReportDetailsType;
-
+  report: ReportDetails;
   editable: boolean;
+  onChange: (report: ReportDetails) => void;
 };
 
-function ReportDetailsSection({ report, editable }: ReportDetailsSectionProps) {
+function ReportDetailsSection({
+  report,
+  editable,
+  onChange,
+}: ReportDetailsSectionProps) {
   return (
     <>
       <ReportSection
@@ -29,6 +34,7 @@ function ReportDetailsSection({ report, editable }: ReportDetailsSectionProps) {
           report={report}
           fields={identificationFields}
           editable={editable}
+          onChange={onChange}
         />
       </ReportSection>
 
@@ -37,6 +43,7 @@ function ReportDetailsSection({ report, editable }: ReportDetailsSectionProps) {
           report={report}
           fields={customerFields}
           editable={editable}
+          onChange={onChange}
         />
       </ReportSection>
 
@@ -45,6 +52,7 @@ function ReportDetailsSection({ report, editable }: ReportDetailsSectionProps) {
           report={report}
           fields={personnelFields}
           editable={editable}
+          onChange={onChange}
         />
       </ReportSection>
 
@@ -53,6 +61,15 @@ function ReportDetailsSection({ report, editable }: ReportDetailsSectionProps) {
           report={report}
           fields={technicalFields}
           editable={editable}
+          onChange={onChange}
+        />
+      </ReportSection>
+
+      <ReportSection title="Georreferencias" icon={<BsGeoAlt size={20} />}>
+        <GeoreferenceSection
+          report={report}
+          editable={editable}
+          onChange={onChange}
         />
       </ReportSection>
     </>

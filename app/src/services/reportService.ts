@@ -110,3 +110,13 @@ export async function downloadPdf(id: string) {
 
   return response.blob();
 }
+
+export async function approveReport(id: string): Promise<void> {
+  const response = await apiFetch(`/reports/${id}/approve`, {
+    method: "PUT",
+  });
+
+  if (!response.ok) {
+    throw new Error("No se pudo aprobar el reporte");
+  }
+}

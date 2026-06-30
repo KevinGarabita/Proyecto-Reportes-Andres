@@ -45,8 +45,14 @@ function CreateReportPage() {
 
     tipo_os: null,
 
-    georeferencia_casa: "",
-    georeferencia_terminal: "",
+    georeferencia_casa: {
+      latitude: null,
+      longitude: null,
+    },
+    georeferencia_terminal: {
+      latitude: null,
+      longitude: null,
+    },
     alfanumerico: "",
 
     supervisor_id: null,
@@ -68,6 +74,7 @@ function CreateReportPage() {
       try {
         const data = await getReport(id);
         setReport(data);
+        console.log(data);
       } catch (error) {
         console.error(error);
 
