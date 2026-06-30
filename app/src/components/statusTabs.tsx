@@ -16,7 +16,7 @@ function StatusTabs({ status, stats, onChange }: Props) {
         <div className="col-md-4">
           <button
             className={`btn ${
-              status === "DRAFT" ? "btn-primary" : "btn-outline-primary"
+              status === "DRAFT" ? "btn-warning" : "btn-outline-warning"
             } w-100 h-100 text-break`}
             onClick={() => onChange("DRAFT")}
           >
@@ -38,7 +38,7 @@ function StatusTabs({ status, stats, onChange }: Props) {
         <div className="col-md-4">
           <button
             className={`btn ${
-              status === "APPROVED" ? "btn-primary" : "btn-outline-primary"
+              status === "APPROVED" ? "btn-success" : "btn-outline-success"
             } w-100 h-100 text-break`}
             onClick={() => onChange("APPROVED")}
           >

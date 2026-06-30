@@ -12,7 +12,7 @@ type Props = {
 
 function EvidenceList({ evidences, setEvidences }: Props) {
   return (
-    <div className="container py-4">
+    <div className="container py-4 mb-5">
       {EVIDENCES.map((item) => (
         <EvidenceCard
           key={item.key}
