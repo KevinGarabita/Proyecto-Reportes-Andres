@@ -25,7 +25,7 @@ function LoginForm({
       {/* Badge */}
 
       <span className="badge border border-success text-success rounded-pill px-3 py-2 mb-4">
-        Plataforma Interna
+        Software Interno
       </span>
 
       {/* Header */}
@@ -54,7 +54,7 @@ function LoginForm({
 
           <input
             type="email"
-            className="form-control border-start-0 ps-0"
+            className="form-control border-start-0 ps-1"
             placeholder="correo@uxmal.com"
             value={email}
             onChange={(e) => onEmailChange(e.target.value)}
@@ -78,7 +78,7 @@ function LoginForm({
 
           <input
             type={showPassword ? "text" : "password"}
-            className="form-control border-start-0 border-end-0 ps-0"
+            className="form-control border-start-0 border-end-0 ps-1"
             placeholder="••••••••"
             value={password}
             onChange={(e) => onPasswordChange(e.target.value)}

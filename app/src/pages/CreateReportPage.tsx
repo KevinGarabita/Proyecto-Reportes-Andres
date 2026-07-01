@@ -187,7 +187,7 @@ function CreateReportPage() {
       <PageHeader>
         <div className="row">
           <div className="col">
-            <div className="d-flex align-items-center gap-3">
+            <div className="d-flex align-items-center gap-3 mb-4">
               <button
                 type="button"
                 className="btn btn-outline-light rounded-circle d-flex align-items-center justify-content-center"

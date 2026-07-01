@@ -77,7 +77,7 @@ function LoginPage() {
           <div className="d-flex flex-column h-100">
             {/* Logo */}
 
-            <div className="p-4 p-lg-5">
+            <div className="p-4 p-lg-3">
               <img
                 src={uxmalLogo}
                 alt="Uxmal Technologies"
@@ -88,7 +88,7 @@ function LoginPage() {
 
             {/* Formulario */}
 
-            <div className="flex-grow-1 d-flex align-items-center">
+            <div className="flex-grow-1 d-flex align-items-top mt-4">
               <div className="w-100 px-4 px-lg-5">
                 <LoginForm
                   email={email}
@@ -100,14 +100,6 @@ function LoginPage() {
                 />
               </div>
             </div>
-
-            {/* Footer */}
-
-            <div className="px-4 px-lg-5 pb-4">
-              <small className="text-body-secondary">
-                © 2026 Uxmal Technologies
-              </small>
-            </div>
           </div>
         </div>
 
@@ -118,18 +110,8 @@ function LoginPage() {
           style={{ backgroundColor: "hsl(0deg 0% 9%)" }}
         >
           <div className="px-5" style={{ maxWidth: "620px" }}>
-            <div
-              className="display-1 fw-bold text-secondary mb-4"
-              style={{
-                opacity: ".12",
-                lineHeight: 1,
-              }}
-            >
-              “
-            </div>
-
             <h2
-              className="fw-bold text-white mb-0"
+              className="fw-bold text-white mb-5"
               style={{
                 fontSize: "2.6rem",
                 lineHeight: 1.3,

@@ -3,46 +3,57 @@ import type { ReportStatusType } from "../types/reportStatus";
 
 type Props = {
   status: ReportStatusType;
-
   stats: ReportStats | null;
-
   onChange: (status: ReportStatusType) => void;
 };
 
 function StatusTabs({ status, stats, onChange }: Props) {
   return (
-    <div className="container-fluid">
-      <div className="row g-4 gy-md-0 mt-4">
-        <div className="col-md-4">
+    <div className="container-fluid p-0 mt-4 border-bottom border-secondary-subtle">
+      <div className="row g-0">
+        <div className="col">
           <button
-            className={`btn ${
-              status === "DRAFT" ? "btn-warning" : "btn-outline-warning"
-            } w-100 h-100 text-break`}
+            type="button"
+            className={`status-tab ${status === "DRAFT" ? "active draft" : ""}`}
             onClick={() => onChange("DRAFT")}
           >
-            Pendientes ({stats?.draft ?? 0})
+            <span>Pendientes</span>
+
+            <span className="badge rounded-pill bg-warning-subtle text-warning ms-2">
+              {stats?.draft ?? 0}
+            </span>
           </button>
         </div>
 
-        <div className="col-md-4">
+        <div className="col">
           <button
-            className={`btn ${
-              status === "REVIEW" ? "btn-primary" : "btn-outline-primary"
-            } w-100 h-100 text-break`}
+            type="button"
+            className={`status-tab ${
+              status === "REVIEW" ? "active review" : ""
+            }`}
             onClick={() => onChange("REVIEW")}
           >
-            En revisión ({stats?.review ?? 0})
+            <span>En revisión</span>
+
+            <span className="badge rounded-pill bg-primary-subtle text-primary ms-2">
+              {stats?.review ?? 0}
+            </span>
           </button>
         </div>
 
-        <div className="col-md-4">
+        <div className="col">
           <button
-            className={`btn ${
-              status === "APPROVED" ? "btn-success" : "btn-outline-success"
-            } w-100 h-100 text-break`}
+            type="button"
+            className={`status-tab ${
+              status === "APPROVED" ? "active approved" : ""
+            }`}
             onClick={() => onChange("APPROVED")}
           >
-            Aprobados ({stats?.approved ?? 0})
+            <span>Aprobados</span>
+
+            <span className="badge rounded-pill bg-success-subtle text-success ms-2">
+              {stats?.approved ?? 0}
+            </span>
           </button>
         </div>
       </div>
